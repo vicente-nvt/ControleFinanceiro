@@ -1,4 +1,4 @@
-package model;
+package dominio.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -23,31 +23,25 @@ public class Pagamento implements Serializable {
 	@JoinColumn(name="codigoCompromisso")
 	private Compromisso compromisso;
 
-	public Pagamento() {
+	public Pagamento() {}
+	
+	public Pagamento(Date dataPagamento, Compromisso compromisso, BigDecimal valorPago)
+	{
+		this.dataPagamento = dataPagamento;
+		this.compromisso = compromisso;
+		this.valorPago = valorPago;
 	}
-
+	
 	public int getCodigo() {
 		return this.codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
 	}
 
 	public Date getDataPagamento() {
 		return this.dataPagamento;
 	}
 
-	public void setDataPagamento(Date dataPagamento) {
-		this.dataPagamento = dataPagamento;
-	}
-
 	public BigDecimal getValorPago() {
 		return this.valorPago;
-	}
-
-	public void setValorPago(BigDecimal valorPago) {
-		this.valorPago = valorPago;
 	}
 
 	public Compromisso getCompromisso() {
@@ -57,5 +51,4 @@ public class Pagamento implements Serializable {
 	public void setCompromisso(Compromisso compromisso) {
 		this.compromisso = compromisso;
 	}
-
 }

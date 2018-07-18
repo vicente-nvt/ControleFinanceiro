@@ -1,4 +1,4 @@
-package model;
+package dominio.modelo;
 
 public enum Movimento {
 	SAIDA,

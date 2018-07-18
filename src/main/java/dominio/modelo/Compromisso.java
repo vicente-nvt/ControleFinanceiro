@@ -1,4 +1,4 @@
-package model;
+package dominio.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,26 +17,26 @@ import javax.persistence.TemporalType;
 
 @Entity
 @NamedQuery(name="Compromisso.findAll", query="SELECT c FROM Compromisso c")
-public class Compromisso implements Serializable, IPersistent {
+public class Compromisso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
 	private int codigo;
-
+	
 	private String descricao;
-
+	
 	private String movimento;
-
+	
 	private int parcela;
-
+	
 	private String tipo;
-
+	
 	private int totalParcelas;
-
+	
 	private BigDecimal valorEfetivo;
-
-	private BigDecimal valorPrevisto;
+	
+	private BigDecimal valorPrevisto;	
 	
 	@Temporal(TemporalType.DATE)
 	private Date diaVencimento;
@@ -50,87 +50,35 @@ public class Compromisso implements Serializable, IPersistent {
 
 	public Compromisso() {
 	}
-
-	public int getCodigo() {
-		return this.codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
-
-	public String getDescricao() {
-		return this.descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
 	
-	public Movimento getMovimento(){
-		return Movimento.valueOf(this.movimento);
-	}
-	
-	public void setMovimento(Movimento movimento){
+	public Compromisso(String descricao, Movimento movimento, int parcela,
+		Tipo tipo, int totalParcelas, BigDecimal valorEfetivo, 
+		BigDecimal valorPrevisto, Agrupador agrupador, Date diaVencimento)
+	{
 		this.movimento = movimento.toString();
-	}
-
-	public int getParcela() {
-		return this.parcela;
-	}
-
-	public void setParcela(int parcela) {
 		this.parcela = parcela;
-	}
-
-	public Tipo getTipo() {
-		return Tipo.valueOf(this.tipo);
-	}
-
-	public void setTipo(Tipo tipo) {
 		this.tipo = tipo.toString();
-	}
-
-	public int getTotalParcelas() {
-		return this.totalParcelas;
-	}
-
-	public void setTotalParcelas(int totalParcelas) {
 		this.totalParcelas = totalParcelas;
-	}
-
-	public BigDecimal getValorEfetivo() {
-		return this.valorEfetivo;
-	}
-
-	public void setValorEfetivo(BigDecimal valorEfetivo) {
 		this.valorEfetivo = valorEfetivo;
-	}
-
-	public BigDecimal getValorPrevisto() {
-		return this.valorPrevisto;
-	}
-
-	public void setValorPrevisto(BigDecimal valorPrevisto) {
 		this.valorPrevisto = valorPrevisto;
-	}
-
-	public Agrupador getAgrupador() {
-		return this.agrupador;
-	}
-
-	public void setAgrupador(Agrupador agrupador) {
 		this.agrupador = agrupador;
+		this.diaVencimento = diaVencimento;
 	}
 
-	public List<Pagamento> getPagamentos() {
-		return this.pagamentos;
-	}
+	public int getCodigo() { return this.codigo; }
+	public String getDescricao() {	return this.descricao;	}
+	public Movimento getMovimento(){ return Movimento.valueOf(this.movimento);	}
+	public int getParcela() { return this.parcela; }
+	public Tipo getTipo() {	return Tipo.valueOf(this.tipo);	}
+	public int getTotalParcelas() { return this.totalParcelas; }
+	public BigDecimal getValorEfetivo() { return this.valorEfetivo; }
+	public BigDecimal getValorPrevisto() { return this.valorPrevisto; }
+	public Agrupador getAgrupador() { return this.agrupador; }
+	public List<Pagamento> getPagamentos() { return this.pagamentos; }
+	public Date getDiaVencimento() { return diaVencimento; }
 
-	public void setPagamentos(List<Pagamento> pagamentos) {
-		this.pagamentos = pagamentos;
-	}
-
+	public void setAgrupador(Agrupador agrupador) { this.agrupador = agrupador; }
+	
 	public Pagamento addPagamento(Pagamento pagamento) {
 		getPagamentos().add(pagamento);
 		pagamento.setCompromisso(this);
@@ -155,14 +103,5 @@ public class Compromisso implements Serializable, IPersistent {
 			   this.getValorEfetivo().equals(compromisso.getValorEfetivo()) &&
 			   this.getValorPrevisto().equals(compromisso.getValorPrevisto());
 			   
-	}
-
-	public Date getDiaVencimento() {
-		return diaVencimento;
-	}
-
-	public void setDiaVencimento(Date diaVencimento) {
-		this.diaVencimento = diaVencimento;
-	}
-
+	}	
 }

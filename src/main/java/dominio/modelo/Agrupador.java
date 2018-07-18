@@ -1,16 +1,20 @@
-package model;
+package dominio.modelo;
 
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class Agrupador implements Serializable, IPersistent {
+public class Agrupador implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -23,29 +27,19 @@ public class Agrupador implements Serializable, IPersistent {
 	@Temporal(TemporalType.DATE)
 	private Date diaVencimento;
 
-	//bi-directional many-to-one association to Compromisso
 	@OneToMany(mappedBy="agrupador")
 	private List<Compromisso> compromissos;
 
-	public Agrupador() {
-	}
+	public Agrupador() {}
 
-	public int getCodigo() {
-		return this.codigo;
-	}
+	public int getCodigo() { return this.codigo; }
+	
+	public void setCodigo(int codigo) { this.codigo = codigo; }
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
+	public String getDescricao() { return this.descricao; }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
+	public void setDescricao(String descricao) { this.descricao = descricao; }
+	
 	public Date getDiaVencimento() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -54,24 +48,15 @@ public class Agrupador implements Serializable, IPersistent {
 		
 		try {
 			dataRetorno = sdf.parse(data);
-		} catch (ParseException e) {
-			System.out.println("Falha ao converter data: " + e.getMessage());
+		} catch (ParseException e) {			
 			dataRetorno = null;
-		}
+		}		
 		return dataRetorno;		
 	}
 
-	public void setDiaVencimento(Date diaVencimento) {
-		this.diaVencimento = diaVencimento;
-	}
-
-	public List<Compromisso> getCompromissos() {
-		return this.compromissos;
-	}
-
-	public void setCompromissos(List<Compromisso> compromissos) {
-		this.compromissos = compromissos;
-	}
+	public void setDiaVencimento(Date diaVencimento) { this.diaVencimento = diaVencimento; }
+	
+	private List<Compromisso> getCompromissos() { return this.compromissos; }	
 
 	public Compromisso addCompromisso(Compromisso compromisso) {
 		getCompromissos().add(compromisso);
@@ -89,8 +74,6 @@ public class Agrupador implements Serializable, IPersistent {
 	
 	public boolean equals(Agrupador agrupador){
 		return 	agrupador.getDescricao().equals(this.getDescricao()) &&
-				agrupador.getDiaVencimento().compareTo(this.getDiaVencimento()) == 0;
-				
+				agrupador.getDiaVencimento().compareTo(this.getDiaVencimento()) == 0;			
 	}
-
 }
