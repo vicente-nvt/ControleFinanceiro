@@ -56,8 +56,8 @@ public class Compromisso implements Serializable {
 		BigDecimal valorPrevisto, Agrupador agrupador, Date diaVencimento)
 	{
 		this.movimento = movimento.toString();
-		this.parcela = parcela;
 		this.tipo = tipo.toString();
+		this.parcela = parcela;
 		this.totalParcelas = totalParcelas;
 		this.valorEfetivo = valorEfetivo;
 		this.valorPrevisto = valorPrevisto;

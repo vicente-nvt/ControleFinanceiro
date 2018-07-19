@@ -6,9 +6,8 @@ import dominio.modelo.Compromisso;
 import infra.conversores.IConversorJSON;
 import infra.repositorio.IRepository;
 
-public class CompromissoBO {
-
-	
+public class CompromissoBO 
+{	
 	private IConversorJSON<Compromisso> conversor;
 	private IRepository<Compromisso> repositorio;
 	
@@ -30,13 +29,8 @@ public class CompromissoBO {
 		repositorio.edit(compromisso);
 	}
 
-	public void remover(Compromisso compromisso) {
+	public void remover(Compromisso compromisso) 
+	{
 		repositorio.delete(compromisso);
 	}
-	
-	public Compromisso findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }
