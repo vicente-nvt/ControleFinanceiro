@@ -1,4 +1,4 @@
-package infra.repositorio;
+package domain.business;
 
 public interface IRepository<T> {
 

@@ -1,8 +1,8 @@
-package infra.conversores;
+package infra.converters;
 
 import org.json.JSONArray;
 
-public interface IConversorJSON<T> {
+public interface IJsonConverter<T> {
 	
 	T jsonToDomain(JSONArray jsonArray);
 	JSONArray domainToJson (T t);

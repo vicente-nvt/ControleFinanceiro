@@ -2,37 +2,38 @@ package infra.repositorio;
 
 import javax.persistence.EntityManager;
 
-import dominio.modelo.Agrupador;
+import domain.business.IRepository;
+import domain.model.Grouper;
 
-public class AgrupadorRepository implements IRepository<Agrupador>{
+public class GrouperRepository implements IRepository<Grouper>{
 	
 	private EntityManager manager;
 	
-	public AgrupadorRepository (EntityManager manager){
+	public GrouperRepository (EntityManager manager){
 		this.manager = manager;
 	}
 
-	public void save(Agrupador agrupador) {		
+	public void save(Grouper agrupador) {		
 		manager.getTransaction().begin();
 		manager.persist(agrupador);
 		manager.getTransaction().commit();
 	}
 
-	public void delete(Agrupador agrupador) {
+	public void delete(Grouper agrupador) {
 		manager.getTransaction().begin();
 		manager.remove(manager.getReference(agrupador.getClass(),agrupador.getCodigo()));
 		manager.getTransaction().commit();
 	}
 	
-	public void edit(Agrupador agrupador) {
+	public void edit(Grouper agrupador) {
 		manager.getTransaction().begin();
 		manager.merge(agrupador);
 		manager.getTransaction().commit();
 	}
 	
-	public Agrupador findById(int id) {
+	public Grouper findById(int id) {
 		manager.getTransaction().begin();
-		Agrupador agrupadorEncontrado = manager.find(Agrupador.class, id);
+		Grouper agrupadorEncontrado = manager.find(Grouper.class, id);
 		manager.getTransaction().rollback();
 	
 		return agrupadorEncontrado;

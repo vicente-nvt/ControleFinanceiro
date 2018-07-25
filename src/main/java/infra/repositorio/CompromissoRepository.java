@@ -2,9 +2,10 @@ package infra.repositorio;
 
 import javax.persistence.EntityManager;
 
-import dominio.modelo.Compromisso;
+import domain.business.IRepository;
+import domain.model.Commitment;
 
-public class CompromissoRepository implements IRepository<Compromisso>{
+public class CompromissoRepository implements IRepository<Commitment>{
 
 	private EntityManager manager;
 		
@@ -12,27 +13,27 @@ public class CompromissoRepository implements IRepository<Compromisso>{
 		this.manager = manager;
 	}
 
-	public void save(Compromisso compromisso) {		
+	public void save(Commitment compromisso) {		
 		manager.getTransaction().begin();
 		manager.persist(compromisso);
 		manager.getTransaction().commit();
 	}
 
-	public void delete(Compromisso compromisso) {
+	public void delete(Commitment compromisso) {
 		manager.getTransaction().begin();
 		manager.remove(compromisso);
 		manager.getTransaction().commit();			
 	}
 
-	public Compromisso findById(int codigo) {
+	public Commitment findById(int codigo) {
 		manager.getTransaction().begin();
-		Compromisso compromisso = manager.find(Compromisso.class, codigo);
+		Commitment compromisso = manager.find(Commitment.class, codigo);
 		manager.getTransaction().rollback();
 		
 		return compromisso;
 	}
 
-	public void edit(Compromisso compromisso) {
+	public void edit(Commitment compromisso) {
 		manager.getTransaction().begin();
 		manager.merge(compromisso);
 		manager.getTransaction().commit();
