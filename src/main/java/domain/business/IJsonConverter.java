@@ -1,4 +1,4 @@
-package infra.converters;
+package domain.business;
 
 import org.json.JSONArray;
 

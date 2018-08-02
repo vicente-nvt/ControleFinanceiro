@@ -32,6 +32,11 @@ public class Payment implements Serializable {
 		this.amountPaid = amountPaid;
 	}
 	
+	public Payment(int id, Date payDay, Commitment commitment, BigDecimal amountPaid){		
+		this(payDay, commitment, amountPaid);
+		this.id = id;
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -44,8 +49,8 @@ public class Payment implements Serializable {
 		return this.amountPaid;
 	}
 
-	public Commitment getCommitment() {
-		return this.commitment;
+	public int getCommitmentId(){
+		return this.commitment.getId();
 	}
 
 	public void setCommitment(Commitment commitment) {

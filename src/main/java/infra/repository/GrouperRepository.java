@@ -1,11 +1,11 @@
-package infra.repositorio;
+package infra.repository;
 
 import javax.persistence.EntityManager;
 
-import domain.business.IRepository;
+import domain.business.IGrouperRepository;
 import domain.model.Grouper;
 
-public class GrouperRepository implements IRepository<Grouper>{
+public class GrouperRepository implements IGrouperRepository{
 	
 	private EntityManager manager;
 	
@@ -13,7 +13,7 @@ public class GrouperRepository implements IRepository<Grouper>{
 		this.manager = manager;
 	}
 
-	public void save(Grouper agrupador) {		
+	public void add(Grouper agrupador) {		
 		manager.getTransaction().begin();
 		manager.persist(agrupador);
 		manager.getTransaction().commit();

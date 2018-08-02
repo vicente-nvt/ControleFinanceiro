@@ -5,8 +5,9 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import domain.business.IJsonConverter;
 import domain.model.Grouper;
-import infra.utilitarios.DateTransformation;
+import infra.utilitary.DateTransformation;
 
 public class GrouperToJsonConverter implements IJsonConverter<Grouper> 
 {

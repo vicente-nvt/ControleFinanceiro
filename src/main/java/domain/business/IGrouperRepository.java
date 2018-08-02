@@ -1,6 +1,5 @@
-package infra.converters;
+package domain.business;
 
-import domain.business.IRepository;
 import domain.model.Grouper;
 
 public interface IGrouperRepository extends IRepository<Grouper> {
