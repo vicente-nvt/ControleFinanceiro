@@ -11,12 +11,13 @@ import domain.business.IJsonConverter;
 import domain.model.Commitment;
 import domain.model.Payment;
 import infra.utilitary.DateTransformation;
+import infra.utilitary.JsonArrayCreator;
 
-public class PaymentToJsonConverter implements IJsonConverter<Payment>{
+public class PaymentJsonConverter implements IJsonConverter<Payment>{
 
 	private ICommitmentRepository commitmentRepository;
 	
-	public PaymentToJsonConverter(ICommitmentRepository commitmentRepository) {
+	public PaymentJsonConverter(ICommitmentRepository commitmentRepository) {
 		this.commitmentRepository = commitmentRepository;
 	}
 
@@ -41,16 +42,13 @@ public class PaymentToJsonConverter implements IJsonConverter<Payment>{
 	@Override
 	public JSONArray domainToJson(Payment payment) {
 		
-		JSONObject jsonObject = new JSONObject();
-		JSONObject jsonHeader = new JSONObject();
+		JSONObject paymentJson = new JSONObject();
+
+		paymentJson.put("id", payment.getId());
+		paymentJson.put("amountPaid", payment.getAmountPaid());
+		paymentJson.put("payDay", payment.getPayDay());
+		paymentJson.put("commitmentId", payment.getCommitmentId());					
 		
-		jsonObject.put("id", payment.getId());
-		jsonObject.put("amountPaid", payment.getAmountPaid());
-		jsonObject.put("payDay", payment.getPayDay());
-		jsonObject.put("commitmentId", payment.getCommitmentId());
-		
-		jsonHeader.put("payment", jsonObject);
-					
-		return new JSONArray().put(jsonHeader);
+		return JsonArrayCreator.Create("payment", paymentJson);
 	}
 }

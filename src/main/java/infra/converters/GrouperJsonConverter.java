@@ -9,7 +9,7 @@ import domain.business.IJsonConverter;
 import domain.model.Grouper;
 import infra.utilitary.DateTransformation;
 
-public class GrouperToJsonConverter implements IJsonConverter<Grouper> 
+public class GrouperJsonConverter implements IJsonConverter<Grouper> 
 {
 	@Override
 	public Grouper jsonToDomain(JSONArray jsonArray) 
@@ -23,12 +23,8 @@ public class GrouperToJsonConverter implements IJsonConverter<Grouper>
 		catch (Exception e) { 
 			date = null; 
 		}
-
-		Grouper grouper = new Grouper();
-		grouper.setDescription(grouperJson.getString("description"));
-		grouper.setExpiryDate(date);
 		
-		return grouper;
+		return new Grouper(grouperJson.getString("description"), date);
 	}
 	
 	@Override

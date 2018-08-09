@@ -21,7 +21,7 @@ public class GrouperRepository implements IGrouperRepository{
 
 	public void delete(Grouper agrupador) {
 		manager.getTransaction().begin();
-		manager.remove(manager.getReference(agrupador.getClass(),agrupador.getCodigo()));
+		manager.remove(manager.getReference(agrupador.getClass(),agrupador.getId()));
 		manager.getTransaction().commit();
 	}
 	

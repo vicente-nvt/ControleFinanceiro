@@ -31,15 +31,21 @@ public class Grouper implements Serializable {
 	private List<Commitment> commitment;
 
 	public Grouper() {}
-
-	public int getCodigo() { return this.id; }
 	
-	public void setId(int id) { this.id = id; }
+	public Grouper(String description, Date expiryDate){		
+		this.description = description;
+		this.expiryDate = expiryDate;		
+	}
+	
+	public Grouper(int id, String description, Date expiryDate){
+		this(description, expiryDate);
+		this.id = id;
+	}
+	
+	public int getId() { return this.id; }
 
 	public String getDescription() { return this.description; }
 
-	public void setDescription(String description) { this.description = description; }
-	
 	public Date getExpiryDate() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -54,11 +60,9 @@ public class Grouper implements Serializable {
 		return returnDate;		
 	}
 
-	public void setExpiryDate(Date expiryDate) { this.expiryDate = expiryDate; }
-	
 	private List<Commitment> getCommitments() { return this.commitment; }	
 
-	public Commitment addCompromisso(Commitment commitment) {
+	public Commitment addCommitment(Commitment commitment) {
 		getCommitments().add(commitment);
 		commitment.setGrouper(this);
 

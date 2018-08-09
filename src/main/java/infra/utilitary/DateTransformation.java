@@ -10,7 +10,11 @@ public class DateTransformation {
 	public static Date StringToDate(String date) throws ParseException{
 		Calendar dt = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		dt.setTime(sdf.parse(date));
+		try {			
+			dt.setTime(sdf.parse(date));
+		} catch (ParseException exception) {
+			dt.set(1899, 11, 30);
+		};		
 		return dt.getTime();			
 	}
 	

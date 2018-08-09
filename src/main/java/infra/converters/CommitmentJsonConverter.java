@@ -15,12 +15,13 @@ import domain.model.Grouper;
 import domain.model.Movement;
 import domain.model.Type;
 import infra.utilitary.DateTransformation;
+import infra.utilitary.JsonArrayCreator;
 
-public class CommitmentToJsonConverter implements IJsonConverter<Commitment> {
+public class CommitmentJsonConverter implements IJsonConverter<Commitment> {
 
 	private IRepository<Grouper> grouperRepository;
 	
-	public CommitmentToJsonConverter(IGrouperRepository grouperRepository) 
+	public CommitmentJsonConverter(IGrouperRepository grouperRepository) 
 	{
 		this.grouperRepository = grouperRepository;
 	}
@@ -30,6 +31,7 @@ public class CommitmentToJsonConverter implements IJsonConverter<Commitment> {
 	{		
 		JSONObject jsonCommitment = (JSONObject) jsonArray.getJSONObject(0).get("commitment");
 		
+		int id = jsonCommitment.getInt("id");
 		String description = jsonCommitment.getString("description");
 		Movement movement = Movement.valueOf(jsonCommitment.getString("movement"));
 		int plot = jsonCommitment.getInt("plot");
@@ -45,13 +47,25 @@ public class CommitmentToJsonConverter implements IJsonConverter<Commitment> {
 			expiryDate = Calendar.getInstance().getTime();
 		}
 		
-		return new Commitment(description, movement, plot, type, totalPlots, 
+		return new Commitment(id, description, movement, type, plot, totalPlots, 
 				effectiveValue, expectedValue, grouper, expiryDate);
 	}
 
 	@Override
 	public JSONArray domainToJson(Commitment commitment) 
 	{
-		return null;
+		JSONObject jsonCommitment = new JSONObject();		
+		jsonCommitment.put("id", commitment.getId());		
+		jsonCommitment.put("description", commitment.getDescription());
+		jsonCommitment.put("movement", commitment.getMovement().toString());
+		jsonCommitment.put("type", commitment.getType().toString());
+		jsonCommitment.put("plot", commitment.getPlot());
+		jsonCommitment.put("totalPlots", commitment.getTotalPlots());
+		jsonCommitment.put("effectiveValue", commitment.getEffectiveValue());
+		jsonCommitment.put("expectedValue", commitment.getExpectedValue());
+		jsonCommitment.put("expiryDate", DateTransformation.DateToString(commitment.getExpiryDate()));
+		jsonCommitment.put("grouper", commitment.getGrouper().getId());
+		
+		return  JsonArrayCreator.Create("commitment", jsonCommitment);
 	}
 }

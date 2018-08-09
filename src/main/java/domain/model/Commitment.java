@@ -51,10 +51,19 @@ public class Commitment implements Serializable {
 	public Commitment() {
 	}
 	
-	public Commitment(String description, Movement movement, int plot,
-		Type type, int totalPlots, BigDecimal effectiveValue, 
+	public Commitment(int id, String description, Movement movement, Type type, 
+			int plot, int totalPlots, BigDecimal effectiveValue, 
+			BigDecimal expectedValue, Grouper grouper, Date expiryDate){
+		this(description, movement, type, plot, totalPlots, effectiveValue, expectedValue,
+				grouper, expiryDate);
+		this.id = id;
+	}
+	
+	public Commitment(String description, Movement movement, Type type, 
+		int plot, int totalPlots, BigDecimal effectiveValue, 
 		BigDecimal expectedValue, Grouper grouper, Date expiryDate)
 	{
+		this.description = description;
 		this.movement = movement.toString();
 		this.type = type.toString();
 		this.plot = plot;
@@ -66,7 +75,7 @@ public class Commitment implements Serializable {
 	}
 
 	public int getId() { return this.id; }
-	public String getDescription() {	return this.description;	}
+	public String getDescription() { return this.description; }
 	public Movement getMovement(){ return Movement.valueOf(this.movement);	}
 	public int getPlot() { return this.plot; }
 	public Type getType() {	return Type.valueOf(this.type);	}
@@ -100,8 +109,7 @@ public class Commitment implements Serializable {
 			   this.getType().compareTo(commitment.getType()) == 0 &&
 			   this.getPlot() == commitment.getPlot() &&
 			   this.getTotalPlots() == commitment.getTotalPlots() &&
-			   this.getEffectiveValue().equals(commitment.getEffectiveValue()) &&
-			   this.getExpectedValue().equals(commitment.getExpectedValue());
-			   
+			   this.getEffectiveValue().compareTo(commitment.getEffectiveValue()) == 0 &&
+			   this.getExpectedValue().compareTo(commitment.getExpectedValue()) == 0;			   
 	}	
 }
