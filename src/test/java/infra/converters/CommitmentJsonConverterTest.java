@@ -13,11 +13,12 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import domain.builders.CommitmentBuilder;
+import domain.builders.GrouperBuilder;
 import domain.model.Commitment;
 import domain.model.Grouper;
 import domain.model.Movement;
 import domain.model.Type;
-import infra.repository.GrouperRepository;
+import domain.repository.GrouperRepository;
 import infra.utilitary.DateTransformation;
 import infra.utilitary.JsonArrayCreator;
 
@@ -30,7 +31,11 @@ public class CommitmentJsonConverterTest {
 
 	@Before
 	public void Setup() throws ParseException {
-		grouper = new Grouper(9, "Test", DateTransformation.StringToDate("10/03/2018"));
+		grouper = GrouperBuilder.newGrouper()
+				.withId(9)
+				.withDescription("Test")
+				.withExpiryDate(DateTransformation.StringToDate("10/03/2018"))
+				.build();
 		grouperRepository = Mockito.mock(GrouperRepository.class);
 		Mockito.when(grouperRepository.findById(anyInt())).thenReturn(grouper);
 		

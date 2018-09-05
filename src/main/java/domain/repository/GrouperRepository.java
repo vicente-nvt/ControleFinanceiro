@@ -1,6 +1,7 @@
-package infra.repository;
+package domain.repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import domain.business.IGrouperRepository;
 import domain.model.Grouper;
@@ -8,33 +9,35 @@ import domain.model.Grouper;
 public class GrouperRepository implements IGrouperRepository{
 	
 	private EntityManager manager;
+	private EntityTransaction transaction;
 	
 	public GrouperRepository (EntityManager manager){
 		this.manager = manager;
+		transaction = manager.getTransaction();
 	}
 
-	public void add(Grouper agrupador) {		
-		manager.getTransaction().begin();
+	public void add(Grouper agrupador) {				
+		transaction.begin();
 		manager.persist(agrupador);
-		manager.getTransaction().commit();
+		transaction.commit();
 	}
 
-	public void delete(Grouper agrupador) {
-		manager.getTransaction().begin();
+	public void delete(Grouper agrupador) {		
+		transaction.begin();
 		manager.remove(manager.getReference(agrupador.getClass(),agrupador.getId()));
-		manager.getTransaction().commit();
+		transaction.commit();
 	}
 	
 	public void edit(Grouper agrupador) {
-		manager.getTransaction().begin();
+		transaction.begin();
 		manager.merge(agrupador);
-		manager.getTransaction().commit();
+		transaction.commit();
 	}
 	
 	public Grouper findById(int id) {
-		manager.getTransaction().begin();
+		transaction.begin();
 		Grouper agrupadorEncontrado = manager.find(Grouper.class, id);
-		manager.getTransaction().rollback();
+		transaction.rollback();
 	
 		return agrupadorEncontrado;
 	}

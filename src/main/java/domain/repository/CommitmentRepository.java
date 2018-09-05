@@ -1,41 +1,44 @@
-package infra.repository;
+package domain.repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
-import domain.business.IRepository;
+import domain.business.ICommitmentRepository;
 import domain.model.Commitment;
 
-public class CommitmentRepository implements IRepository<Commitment>{
+public class CommitmentRepository implements ICommitmentRepository{
 
 	private EntityManager manager;
+	private EntityTransaction transaction;
 		
 	public CommitmentRepository (EntityManager manager){
 		this.manager = manager;
+		transaction = manager.getTransaction();
 	}
 
 	public void add(Commitment commitment) {		
-		manager.getTransaction().begin();
+		transaction.begin();
 		manager.persist(commitment);
-		manager.getTransaction().commit();
+		transaction.commit();
 	}
 
 	public void delete(Commitment commitment) {
-		manager.getTransaction().begin();
+		transaction.begin();
 		manager.remove(commitment);
-		manager.getTransaction().commit();			
+		transaction.commit();			
 	}
 
 	public Commitment findById(int id) {
-		manager.getTransaction().begin();
+		transaction.begin();
 		Commitment commitment = manager.find(Commitment.class, id);
-		manager.getTransaction().rollback();
+		transaction.rollback();
 		
 		return commitment;
 	}
 
 	public void edit(Commitment commitment) {
-		manager.getTransaction().begin();
+		transaction.begin();
 		manager.merge(commitment);
-		manager.getTransaction().commit();
+		transaction.commit();
 	}	
 }

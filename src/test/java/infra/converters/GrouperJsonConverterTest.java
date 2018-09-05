@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import domain.builders.GrouperBuilder;
 import domain.model.Grouper;
 import infra.utilitary.JsonArrayCreator;
 
@@ -32,9 +33,12 @@ public class GrouperJsonConverterTest {
 		jsonArray = JsonArrayCreator.Create("grouper", jsonGrouper);
 		
 		Calendar date = Calendar.getInstance();
-		date.set(2018, 2, 10);
-
-		grouper = new Grouper("Test", date.getTime());
+		date.set(2018, 2, 10);		
+		
+		grouper = GrouperBuilder.newGrouper()
+				.withDescription("Test")
+				.withExpiryDate(date.getTime())
+				.build();
 	}
 	
 	@Test

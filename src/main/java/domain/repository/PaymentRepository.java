@@ -1,4 +1,4 @@
-package infra.repository;
+package domain.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -12,7 +12,7 @@ public class PaymentRepository implements IPaymentRepository{
 	
 	public PaymentRepository(EntityManager manager) {
 		this.manager = manager; 
-		transaction = this.manager.getTransaction();
+		transaction = manager.getTransaction();
 	}
 
 	@Override
